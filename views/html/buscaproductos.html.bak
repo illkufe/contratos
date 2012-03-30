@@ -1,0 +1,47 @@
+{{extend 'layout.html'}}
+<h1>Busca productos contrato n&deg; {{=contrato.id}}</h1>
+
+<div class="right">
+{{=A('Volver', _href=URL('html','contrato',args=contrato.id))}}
+</div>
+
+<form action="" enctype="multipart/form-data" method="post" name="busqueda">
+    <table>
+        <tbody>
+            <tr>
+                <td>Descripción</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input name="descripcion" type="text" /></td>
+                <td><input name="aceptar" type="submit" value="Buscar" /></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+<form action="" enctype="multipart/form-data" method="post" name="grilla">
+    <table id="hor-zebra">
+        <thead>
+            <tr>
+                <td>Selección</td>
+                <td>Código</td>
+                <td>Descripcion</td>
+                <td>Precio</td>
+            </tr>
+        </thead>
+        <tbody>
+            {{i=0}}
+            {{for producto in productos:}}
+                {{if i % 2:}}<tr>{{else:}}<tr class='odd'>{{pass}}
+                <td><input name="productos" type="checkbox" value="{{=(producto[0])}}" /></td>
+                <td>{{=(producto[0])}}</td>
+                <td>{{=(producto[2])}}</td>
+                <td>{{=(producto[3])}}</td>
+                {{i=i+1}}
+            </tr>
+             {{pass}}
+        </tbody>
+    </table>
+    <input name="aceptar" type="submit" value="Aceptar" />
+</form>

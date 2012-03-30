@@ -1,0 +1,23 @@
+{{extend 'layout.html'}}
+<h1>Lista todos los contratos</h1>
+<table id="hor-zebra" summary="Lista de contratos">
+    <thead>
+        <tr>
+            <td>id</td>
+            <td>Proveedor</td>
+            <td>Cliente</td>
+        </tr>
+    </thead>
+    <tbody>
+        {{i=0}}
+        {{from consultas import busca_proveedor}}
+        {{for contrato in contratos:}}
+            {{if i % 2:}}<tr>{{else:}}<tr class='odd'>{{pass}}
+            <td>{{=A(contrato.id, _href=URL('html','contrato', args=contrato.id))}}</td>
+            <td>{{=busca_proveedor(contrato.proveedor, request.folder)}}</td>
+            <td>{{=(contrato.cliente)}}</td>
+            {{i=i+1}}
+        </tr>
+        {{pass}} 
+    </tbody>
+</table>

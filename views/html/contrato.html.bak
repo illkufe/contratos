@@ -1,0 +1,51 @@
+{{extend 'layout.html'}}
+<h1>Contrato N&deg; {{=contrato.id}}</h1>
+
+{{=A('Volver', _href=URL('html','index'))}}
+
+<table summary="Encabezado de contratos">
+    <tbody>
+        <tr>
+            {{from consultas import busca_proveedor}}
+            <td>Proveedor:</td>
+            <td>{{=contrato.proveedor}}-{{=busca_proveedor(contrato.proveedor, request.folder)}}</td>
+        </tr>
+        <tr>
+            <td>Cliente:</td>
+            <td>{{=contrato.cliente}}</td>
+            {{pass}}
+        </tr>
+    </tbody>
+</table>
+
+<table id="hor-zebra" summary="Lista de productos">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Cod Producto</td>
+            <td>Descripcion</td>
+            <td>Precio lista</td>
+            <td>Cantidad</td>
+            <td>Neto</td>
+            <td>Actualiza</td>
+        </tr>
+    </thead>
+    <tbody>
+        {{i=0}}
+        {{from consultas import busca_producto}}
+        {{for producto in productos:}}
+            {{if i % 2:}}<tr>{{else:}}<tr class='odd'>{{pass}}
+            <td>{{=(producto.id)}}</td>
+            <td>{{=(producto.cod_producto)}}</td>
+            <td>{{=busca_producto(producto.cod_producto, request.folder)[2]}}</td>
+            <td>{{=(producto.precio_lista)}}</td>
+            <td>{{=(producto.cantidad)}}</td>
+            <td>{{=(producto.neto)}}</td>
+            <td>{{=A('M', _href=URL('html','modproductos', args=producto.id))}}
+            {{=A('D', _href=URL('html','contrato', args=(contrato.id,producto.id,'DEL')))}}
+            </td>
+            {{i=i+1}}
+        </tr>
+        {{pass}} 
+    </tbody>
+</table>

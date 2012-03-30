@@ -1,0 +1,37 @@
+{{extend 'layout.html'}}
+<h1>Modifica producto contrato N&deg; {{=detalle.contrato_id}} </h1>
+
+{{=A('Volver', _href=URL('html','contrato',args=detalle.contrato_id))}}
+
+<form name="fromprod" action="" enctype="multipart/form-data" method="post">
+    <table id="rounded-corner">
+        <tbody>
+            <tr>
+                {{from consultas import busca_producto}}
+                <td>Codigo:</td>
+                <td>{{=detalle.cod_producto}}</td>
+                <td>Descripci&oacute;n:</td>
+                <td>{{=busca_producto(detalle.cod_producto, request.folder)[2]}}</td>
+            </tr>
+            {{pass}}
+            <tr>
+                <td>Precio:</td>
+                <td><input id="pro_precio" name="pro_precio" type="text" value="{{=detalle.precio_lista}}"/></td>
+                <td>Catidad:</td>
+                <td><input id="pro_cantidad" name="pro_cantidad" type="text" value="{{=detalle.cantidad}}"/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Neto:</td>
+                <td><input id="pro_neto" name="pro_neto" type="text" value="{{=detalle.neto}}"/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><input type="submit"/></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
